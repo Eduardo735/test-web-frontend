@@ -47,6 +47,8 @@
     "drizzle-orm": "^0.43.1",
     "firebase": "^11.10.0",
     "jose": "^6.0.11",
+    "leaflet": "^1.9.4",
+    "leaflet-draw": "^1.0.4",
     "lightweight-charts": "^5.0.7",
     "lucide-react": "^0.511.0",
     "next": "15.4.0-canary.47",
@@ -54,6 +56,7 @@
     "postgres": "^3.4.5",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "react-leaflet": "^5.0.0",
     "server-only": "^0.0.1",
     "stripe": "^18.1.0",
     "swr": "^2.3.3",
@@ -67,6 +70,7 @@
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^5.81.2",
+    "@types/leaflet": "^1.9.20",
     "@types/web-push": "^3.6.4"
   }
 }
