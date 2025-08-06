@@ -1,6 +1,6 @@
 "use client";
 
-import { Report } from "@/app/types/report";
+// import { Report } from "@/app/types/report";
 import React, { useCallback, useRef } from "react";
 import {
   Card,
@@ -91,47 +91,28 @@ export default function ReportFeedList() {
             (setup: Report, idx: number, arr: []) => {
               const isLast =
                 i === data.pages.length - 1 && idx === arr.length - 1;
-              return (
-                <div key={setup.id} ref={isLast ? lastElementRef : null}>
-                  <div className="max-w-4xl my-2 mx-auto p-6 space-y-6 border solid rounded-lg w-full max-sm:flex flex-wrap">
-                    <div className="text-center space-y-2">
-                      {/* <h1 className="text-lg font-bold">{setup.ticker} Trading Setup</h1> */}
-                      {/* <p className="text-muted-foreground">
-          {setup.ticker} - Análisis de entrada {setup.direction}
-        </p> */}
-                    </div>
-                    <Card key={setup.id} className="max-sm:w-3xs">
-                      <CardHeader>
-                        <div className="flex items-start justify-between">
-                          <div className="space-y-2">
-                            <CardTitle className="text-xl">
-                              {setup.name}
-                            </CardTitle>
-                            <CardDescription className="flex flex-wrap items-center gap-4 text-sm">
-                              {/* <span className="flex items-center gap-1">
-                              <User className="h-4 w-4" />
-                              {post.author}
-                            </span>
-                            <span className="flex items-center gap-1">
-                              <Calendar className="h-4 w-4" />
-                              {post.date}
-                            </span> */}
-                              {/* <span className="flex items-center gap-1">
-                              <MapPin className="h-4 w-4" />
-                              {post.location}
-                            </span> */}
-                            </CardDescription>
-                          </div>
-                          {/* <Badge variant="secondary">{post.category}</Badge> */}
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <ReportFeed markdown={setup.content?.markdown ?? ""} />
-                      </CardContent>
-                    </Card>
-                  </div>
-                </div>
-              );
+              // return (
+              //   <div key={setup.id} ref={isLast ? lastElementRef : null}>
+              //     <div className="max-w-4xl my-2 mx-auto p-6 space-y-6 border solid rounded-lg w-full max-sm:flex flex-wrap">
+              //       <div className="text-center space-y-2"></div>
+              //       <Card key={setup.id} className="max-sm:w-3xs">
+              //         <CardHeader>
+              //           <div className="flex items-start justify-between">
+              //             <div className="space-y-2">
+              //               <CardTitle className="text-xl">
+              //                 {setup.name}
+              //               </CardTitle>
+              //               <CardDescription className="flex flex-wrap items-center gap-4 text-sm"></CardDescription>
+              //             </div>
+              //           </div>
+              //         </CardHeader>
+              //         <CardContent>
+              //           <ReportFeed markdown={setup.content?.markdown ?? ""} />
+              //         </CardContent>
+              //       </Card>
+              //     </div>
+              //   </div>
+              // );
             }
           )}
         </React.Fragment>
