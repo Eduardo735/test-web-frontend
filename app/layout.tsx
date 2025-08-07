@@ -7,8 +7,8 @@ import { Providers } from "./providers";
 import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
-  title: "Turtles Traders",
-  description: "Get started quickly Turtles Traders.",
+  title: "Test Web Frontend",
+  description: "Test Web Frontend",
 };
 
 export const viewport: Viewport = {

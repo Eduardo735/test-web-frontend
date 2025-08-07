@@ -103,7 +103,7 @@ export default function Quotes() {
           validity: "",
           land: areaDetail,
         });
-        toast.success("Event has been created");
+        toast.success("Quote has been created");
         handleCloseDialog();
       },
       onError: (error) => {
