@@ -4,24 +4,21 @@ import "leaflet-draw/dist/leaflet.draw.css";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useRef, useState } from "react";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
-
-declare global {
-  namespace L {
-    namespace Draw {
-      const Event: any;
-    }
-  }
-}
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
+
+import { Rectangle } from "react-leaflet";
+
+function AreaShape({ area }: { area: SelectedArea }) {
+  const bounds: L.LatLngBoundsExpression = [
+    [area.bounds.south, area.bounds.west],
+    [area.bounds.north, area.bounds.east],
+  ];
+
+  return <Rectangle bounds={bounds} pathOptions={{ color: "#3b82f6" }} />;
+}
 
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -175,25 +172,20 @@ function DrawControl({
   return null;
 }
 
-export default function MapAreaSelector({
-  onAreaChange,
-}: {
-  onAreaChange: (payload: {
-    area: SelectedArea;
-    mapCenter: [number, number];
-  }) => void;
-}) {
-  const [selectedArea, setSelectedArea] = useState<SelectedArea | null>(null);
-  const [mapCenter] = useState<[number, number]>([19.4326, -99.1332]); // Mexico City
+export default function MapAreaSelectorViewer({ area, mapCentered }: any) {
+  console.log("area,mapCentered :>> ", area, mapCentered);
+  const [selectedArea, setSelectedArea] = useState<SelectedArea | null>(area);
+  const [mapCenter] = useState<[number, number]>(mapCentered); // Mexico City
   const [mapZoom] = useState(10);
+
+  console.log("selectedArea.....111 :>> ", selectedArea, mapCenter);
 
   const handleAreaSelected = (area: SelectedArea) => {
     setSelectedArea(area);
-    onAreaChange({ area, mapCenter });
   };
 
   const handleClearArea = () => {
-    setSelectedArea(null);
+    // setSelectedArea(null);
   };
 
   const copyCoordinates = () => {
@@ -212,14 +204,6 @@ export default function MapAreaSelector({
   return (
     <div className="w-full max-w-6xl mx-auto p-4 space-y-4">
       <Card>
-        <CardHeader>
-          <CardTitle>Selector de Área en Mapa</CardTitle>
-          <CardDescription>
-            Usa las herramientas de dibujo en la esquina superior derecha del
-            mapa para seleccionar un área. Puedes dibujar rectángulos o
-            polígonos.
-          </CardDescription>
-        </CardHeader>
         <CardContent>
           <div className="relative">
             <div className="h-[500px] w-full rounded-lg overflow-hidden border">
@@ -227,11 +211,13 @@ export default function MapAreaSelector({
                 center={mapCenter}
                 zoom={mapZoom}
                 style={{ height: "100%", width: "100%" }}
+                className="z-0"
               >
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
+                {selectedArea && <AreaShape area={selectedArea} />}
                 <DrawControl
                   onAreaSelected={handleAreaSelected}
                   onClearArea={handleClearArea}
@@ -276,32 +262,6 @@ export default function MapAreaSelector({
           </CardContent>
         </Card>
       )}
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Instrucciones</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ul className="list-disc list-inside space-y-1 text-sm">
-            <li>
-              Usa el ícono de rectángulo (□) para dibujar áreas rectangulares
-            </li>
-            <li>
-              Usa el ícono de polígono para dibujar áreas con formas
-              personalizadas
-            </li>
-            <li>
-              Haz clic en el ícono de papelera para eliminar el área
-              seleccionada
-            </li>
-            <li>
-              Las coordenadas y el área se mostrarán automáticamente después de
-              dibujar
-            </li>
-            <li>Puedes copiar las coordenadas al portapapeles</li>
-          </ul>
-        </CardContent>
-      </Card>
     </div>
   );
 }

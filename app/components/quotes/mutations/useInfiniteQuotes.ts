@@ -1,11 +1,11 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useApiBackendApplication } from "@/app/lib/axios/axios.interceptor";
 
-export function useInfiniteReportsPagination() {
+export function useInfiniteQuotesPagination() {
     const api = useApiBackendApplication();
 
-    const fetchReports = async ({ pageParam }: any) => {
-        return await api.get(`/report?offset=${pageParam}&limit=${10}`).then(data => {
+    const fetchQuotes = async ({ pageParam }: any) => {
+        return await api.get(`/quote?offset=${pageParam}&limit=${10}`).then(data => {
             return {
                 ...data,
                 limit: 10,
@@ -16,8 +16,8 @@ export function useInfiniteReportsPagination() {
     }
 
     return useInfiniteQuery({
-        queryKey: ['report'],
-        queryFn: fetchReports,
+        queryKey: ['quotes'],
+        queryFn: fetchQuotes,
         initialPageParam: 1,
         getNextPageParam: (lastPage, pages) => {
             const nextPage = lastPage ? lastPage.page + 1 : 1;

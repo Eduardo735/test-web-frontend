@@ -1,7 +1,9 @@
 "use client";
 
-// import { Report } from "@/app/types/report";
+import { Quote } from "@/app/types/report";
 import React, { useCallback, useRef } from "react";
+import EmptyState from "../empty-state/empty-state";
+import ErrorFallback from "../error-fallback/error-fallback";
 import {
   Card,
   CardContent,
@@ -10,10 +12,8 @@ import {
   CardTitle,
 } from "../ui/card";
 import { Skeleton } from "../ui/skeleton";
-import { useInfiniteReportsPagination } from "./mutations/useInfiniteReports";
-import { ReportFeed } from "./report-feed";
-import ErrorFallback from "../error-fallback/error-fallback";
-import EmptyState from "../empty-state/empty-state";
+import { useInfiniteQuotesPagination } from "./mutations/useInfiniteQuotes";
+import ViewQuotes from "./view-quotes";
 
 export function SkeletonCard({ index }: { index: number }) {
   return (
@@ -39,7 +39,7 @@ export function SkeletonCard({ index }: { index: number }) {
   );
 }
 
-export default function ReportFeedList() {
+export default function QuoteList() {
   const {
     data,
     error,
@@ -48,14 +48,13 @@ export default function ReportFeedList() {
     isFetchingNextPage,
     status,
     refetch,
-  } = useInfiniteReportsPagination();
+  } = useInfiniteQuotesPagination();
 
   const [firstPage] = data?.pages || [];
 
   const total = firstPage?.data?.data.total;
 
   const observer = useRef<IntersectionObserver>(undefined);
-
   const lastElementRef = useCallback(
     (node: HTMLDivElement) => {
       if (isFetchingNextPage) return;
@@ -87,32 +86,42 @@ export default function ReportFeedList() {
     <div className="w-2xl mx-auto p-2 space-y-6 max-sm:w-3xs max-sm:p-1">
       {data.pages.map((group, i) => (
         <React.Fragment key={i}>
-          {group.data?.data?.reports?.map(
-            (setup: Report, idx: number, arr: []) => {
+          {group.data?.data?.quotes?.map(
+            (quotes: Quote, idx: number, arr: []) => {
               const isLast =
                 i === data.pages.length - 1 && idx === arr.length - 1;
-              // return (
-              //   <div key={setup.id} ref={isLast ? lastElementRef : null}>
-              //     <div className="max-w-4xl my-2 mx-auto p-6 space-y-6 border solid rounded-lg w-full max-sm:flex flex-wrap">
-              //       <div className="text-center space-y-2"></div>
-              //       <Card key={setup.id} className="max-sm:w-3xs">
-              //         <CardHeader>
-              //           <div className="flex items-start justify-between">
-              //             <div className="space-y-2">
-              //               <CardTitle className="text-xl">
-              //                 {setup.name}
-              //               </CardTitle>
-              //               <CardDescription className="flex flex-wrap items-center gap-4 text-sm"></CardDescription>
-              //             </div>
-              //           </div>
-              //         </CardHeader>
-              //         <CardContent>
-              //           <ReportFeed markdown={setup.content?.markdown ?? ""} />
-              //         </CardContent>
-              //       </Card>
-              //     </div>
-              //   </div>
-              // );
+              return (
+                <div key={quotes.id} ref={isLast ? lastElementRef : null}>
+                  <div className="max-w-4xl my-2 mx-auto p-6 space-y-6 border solid rounded-lg w-full max-sm:flex flex-wrap">
+                    <div className="text-center space-y-2"></div>
+                    <Card key={quotes.id} className="max-sm:w-3xs">
+                      <CardHeader>
+                        <div className="flex items-start justify-between">
+                          <div className="space-y-2">
+                            <CardTitle className="text-xl">
+                              <CardTitle>
+                                Cliente: {quotes?.customer?.name}
+                              </CardTitle>
+                              <CardDescription>
+                                Id: {quotes?.id}
+                                <br />
+                                Estado: {quotes?.land.state?.name}
+                              </CardDescription>
+                            </CardTitle>
+                            <CardDescription className="flex flex-wrap items-center gap-4 text-sm"></CardDescription>
+                          </div>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <ViewQuotes
+                          open={true}
+                          dataInput={quotes?.land?.dataLand}
+                        />
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+              );
             }
           )}
         </React.Fragment>
