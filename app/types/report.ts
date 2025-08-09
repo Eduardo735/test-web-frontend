@@ -9,6 +9,9 @@ export interface Quote {
     land: {
         dataLand: any,
         state: any
+        insurance_amount: number
+        validity: string
+        crop: string
     };
     customer: {
         id: string;

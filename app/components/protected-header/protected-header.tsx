@@ -3,13 +3,11 @@
 import { Suspense } from "react";
 
 import { cn } from "@/app/lib/utils";
-import { JoinCommunity } from "../user-detail/join-turtle-community";
+import { JoinCommunity } from "../user-detail/join-community";
 import { UserAvatarInfo } from "../user-detail/user-avatar-info";
 import styles from "./protected-header.module.css";
 
 export default function ProtectedHeader() {
-  // const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   return (
     <header className="sticky top-0 z-40 border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:bg-black/95">
       <div className={cn(styles.container, "flex justify-between")}>

@@ -15,9 +15,8 @@ export function useMutationsSaveQuote() {
         mutationFn: (newTodo) => {
             return fetchQuotes({ data: newTodo });
         },
-        onSuccess: (data, variables, context) => {
+        onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["quotes"] });
-            return {}
         }
     });
 

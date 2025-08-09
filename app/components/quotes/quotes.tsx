@@ -42,12 +42,9 @@ interface quotes {
 export default function Quotes() {
   const [quotes, setQuotes] = useState<quotes[]>([]);
   const [LayersPage, setLayersPage] = useState<FunctionComponent>();
-  const queryClient = new QueryClient();
   const { data } = useGetStates();
 
   const { data: dataCustomers } = useGetCustomers();
-
-  console.log("data :>> ", data?.data?.states);
 
   const [form, setForm] = useState({
     customer_id: "",

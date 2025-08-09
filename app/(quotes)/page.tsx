@@ -1,13 +1,11 @@
 "use client";
 
-import ProtectedHeader from "../components/protected-header/protected-header";
 import QuoteList from "../components/quotes/quote-list";
 import Quotes from "../components/quotes/quotes";
 
 export default function LandingPage() {
   return (
     <>
-      <ProtectedHeader />
       <Quotes />
       <QuoteList />
     </>

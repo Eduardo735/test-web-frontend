@@ -50,7 +50,7 @@ export default function ViewQuotes({ open, dataInput }: any) {
           </DialogTrigger>
           <DialogContent className="sm:max-w-[825px]">
             <DialogHeader>
-              <DialogTitle>View</DialogTitle>
+              <DialogTitle>Vista Mapa</DialogTitle>
             </DialogHeader>
             <div className="overflow-y-auto max-h-[825px]">
               <div className="container mx-auto p-6 space-y-6">

@@ -106,6 +106,13 @@ export default function QuoteList() {
                                 Id: {quotes?.id}
                                 <br />
                                 Estado: {quotes?.land.state?.name}
+                                <br />
+                                Cosecha: {quotes?.land.crop}
+                                <br />
+                                Cosecha: {quotes?.land.validity}
+                                <br />
+                                Monto del aseguramiento :{" "}
+                                {quotes?.land.insurance_amount}
                               </CardDescription>
                             </CardTitle>
                             <CardDescription className="flex flex-wrap items-center gap-4 text-sm"></CardDescription>
